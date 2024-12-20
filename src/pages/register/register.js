@@ -148,7 +148,7 @@ class Register extends LitElement {
                             .validation=${null}
                             required
                         ></c-input>
-                        <c-button data-id="idField" data-field="userid" @click=${this.handleDuplication}>중복확인</c-button>
+                        <c-button data-id="idField" data-field="userid" @custom-input=${this.handleDuplication}>중복확인</c-button>
                     </span>
                     <span class="input-line">
                         <c-label required>비밀번호</c-label>

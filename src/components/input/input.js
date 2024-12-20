@@ -32,7 +32,16 @@ class Input extends LitElement {
 
     handleInput(event) {
         this.inputValue = event.target.value;
+        console.log(this.inputValue);
         this.handleError();
+
+        this.dispatchEvent(
+            new CustomEvent('custom-input', {
+                detail: { value: this.inputValue },
+                bubbles: true,
+                composed: true,
+            })
+        );
     }
 
     handleError() {
