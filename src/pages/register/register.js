@@ -3,6 +3,10 @@ import resetCss from '@/styles/reset.js';
 import registerCss from '@/pages/register/registerCss.js';
 import { pb } from '@/api/pockethost.js';
 class Register extends LitElement {
+    static properties = {
+        isFormValid: false,
+    };
+
     constructor() {
         super();
         this.inputs = {
@@ -20,6 +24,8 @@ class Register extends LitElement {
             },
             birthDate: '',
         };
+
+        this.isFormValid = false;
     }
     connectedCallback() {
         super.connectedCallback();
@@ -39,8 +45,18 @@ class Register extends LitElement {
         const value = input.value;
 
         this.inputs[id] = value;
-    }
 
+        this.handleReuired();
+    }
+    //필수 입력 값이 모두 입력되었는지 확인
+    handleReuired() {
+        const inputs = this.renderRoot.querySelectorAll('c-input[required]');
+        this.isFormValid = Array.from(inputs).every((input) => {
+            input.inputValue.trim() !== '';
+        });
+
+        //console.log(this.isFormValid);
+    }
     //포켓 호스트에 값을 전송하는 함수
     handleRegister() {
         pb.collection('users')
